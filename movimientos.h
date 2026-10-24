@@ -15,16 +15,25 @@ using namespace std;
 	
 	switch(tipo_movimiento){
 		case 1: {
-			stock_actual = stock_actual + cantidad;
-			return true;
+			if(stock_actual <= 200){
+				if(cantidad <= 200 - stock_actual){
+					stock_actual = stock_actual + cantidad;
+					return true;
+			}
+			else{
+					cout << "CANTIDAD MAXIMA A INGRESAR: " << 200 - stock_actual << " , POR FAVOR RESPETAR EL MAXIMO DE LA CANTIDAD" << endl;
+					return false;
+				}
+			}	
+			else{
+				cout << "ERROR AL AGREGAR PRODUCTOS QUE SUPEREN EL STOCK MAXIMO DEL PRODUCTO" << endl;
+				return false;
+			}
 			break;
 		}
 		case 2:{
 			if(cantidad <= stock_actual) {
 				stock_actual = stock_actual - cantidad;
-				if(stock_actual < 0) {
-					stock_actual = 0;
-				}
 				return true;
 			}
 			else{
