@@ -6,7 +6,7 @@
 
 using namespace std;
 	
-	bool estado_operacion( string codigo_producto, int &stock_actual, int tipo_movimiento, int cantidad){
+	bool estado_operacion( string codigo_producto, int &stock_actual, int stock_maximo, int tipo_movimiento, int cantidad){
 		
 		if(cantidad <= 0) {
 		cout << "ERROR, INGRESAR O RETIRAR UNA CANTIDAD ADECUADA" << endl;
@@ -15,13 +15,14 @@ using namespace std;
 	
 	switch(tipo_movimiento){
 		case 1: {
-			if(stock_actual <= 200){
-				if(cantidad <= 200 - stock_actual){
+			if(stock_actual <= stock_maximo){
+				if(cantidad <= stock_maximo - stock_actual){
 					stock_actual = stock_actual + cantidad;
+					cout << "SE AGREGARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
 					return true;
 			}
 			else{
-					cout << "CANTIDAD MAXIMA A INGRESAR: " << 200 - stock_actual << " , POR FAVOR RESPETAR EL MAXIMO DE LA CANTIDAD" << endl;
+					cout << "CANTIDAD MAXIMA A INGRESAR: " << stock_maximo - stock_actual << " , POR FAVOR RESPETAR EL MAXIMO DE LA CANTIDAD" << endl;
 					return false;
 				}
 			}	
@@ -34,6 +35,7 @@ using namespace std;
 		case 2:{
 			if(cantidad <= stock_actual) {
 				stock_actual = stock_actual - cantidad;
+				cout << "SE RESTARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
 				return true;
 			}
 			else{
@@ -48,6 +50,15 @@ using namespace std;
 			break;
 		}
 	}
+}
+
+float porcentaje(int actual, int maximo){
+	
+	float resultado;
+	
+	resultado = ((static_cast<float>(a)) / maximo) * 100;
+	
+	return resultado;
 }
 
 #endif
