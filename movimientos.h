@@ -5,60 +5,97 @@
 #include <string>
 
 using namespace std;
-	
-	bool estado_operacion( string codigo_producto, int &stock_actual, int stock_maximo, int tipo_movimiento, int cantidad){
-		
-		if(cantidad <= 0) {
+
+    int calcular_espacio_disponible(int stock_actual, int stock_maximo){
+    	
+    	int resultado;
+    	
+    	resultado = stock_maximo - stock_actual;
+    	
+    	return resultado;
+	}
+
+   bool validar_cantidad_positiva(int cantidad){
+   	
+   	if(cantidad <= 0) {
 		cout << "ERROR, INGRESAR O RETIRAR UNA CANTIDAD ADECUADA" << endl;
 		return false;
 	}
-	
+	return true;
+  }
+  
+  bool ejecutar_ingreso(int &stock_actual, int stock_maximo, int cantidad){
+  	
+  	if(stock_actual > stock_maximo) {
+  		cout << "ERROR AL INGRESAR PRODUCTOS, SUPERA EL MAXIMO" << endl;
+  		return false;
+	  }
+	  
+	int espacio_disponible = calcular_espacio_disponible(stock_actual, stock_maximo);
+	  
+	if(cantidad <= espacio_disponible){
+		stock_actual = stock_actual + cantidad;
+		cout << "SE AGREGARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
+		return true;
+	}
+	else{
+		cout << "LA CANTIDAD EXCEDE AL ESPACIO DISPONIBLE" << endl;
+		return false;
+	}
+  }
+  
+  bool ejecutar_retiro(int &stock_actual, int cantidad){
+  	
+  	if(cantidad <= stock_actual){
+  		stock_actual = stock_actual - cantidad;
+  		cout << "SE RESTARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
+  		return true;
+	  }
+	  else{
+	  	cout << "ERROR AL RETIRAR UNA CANTIDAD SUPERIOR AL STOCK ACTUAL" << endl;
+		return false;
+	  }
+  }
+  
+	bool estado_operacion(int &stock_actual, int stock_maximo, int tipo_movimiento, int cantidad){
+		
+		bool validacion;
+		
+		validacion = validar_cantidad_positiva(cantidad);
+		
+		if(!validacion){
+			return false;
+		}
+		
 	switch(tipo_movimiento){
 		case 1: {
-			if(stock_actual <= stock_maximo){
-				if(cantidad <= stock_maximo - stock_actual){
-					stock_actual = stock_actual + cantidad;
-					cout << "SE AGREGARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
-					return true;
-			}
-			else{
-					cout << "CANTIDAD MAXIMA A INGRESAR: " << stock_maximo - stock_actual << " , POR FAVOR RESPETAR EL MAXIMO DE LA CANTIDAD" << endl;
-					return false;
-				}
-			}	
-			else{
-				cout << "ERROR AL AGREGAR PRODUCTOS QUE SUPEREN EL STOCK MAXIMO DEL PRODUCTO" << endl;
-				return false;
-			}
-			break;
+			bool ingreso;
+			
+			ingreso = ejecutar_ingreso(stock_actual, stock_maximo, cantidad);
+			
+			return ingreso;
 		}
 		case 2:{
-			if(cantidad <= stock_actual) {
-				stock_actual = stock_actual - cantidad;
-				cout << "SE RESTARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
-				return true;
-			}
-			else{
-				cout << "ERROR AL RETIRAR UNA CANTIDAD SUPERIOR AL STOCK ACTUAL" << endl;
-				return false;
-			}
-			break;
+			bool retiro;
+			
+			retiro = ejecutar_retiro(stock_actual, cantidad);
+			
+			return retiro;
 		}
 		default:{
 			cout << "SELECCIONE LOS NUMEROS MOSTRADOS POR FAVOR" << endl;
 			return false;
-			break;
 		}
 	}
 }
 
-float porcentaje(int actual, int maximo){
+        float porcentaje(int actual, int maximo){
 	
-	float resultado;
+	    float resultado;
 	
-	resultado = ((static_cast<float>(a)) / maximo) * 100;
+	    resultado = ((static_cast<float>(actual)) / maximo) * 100;
 	
-	return resultado;
-}
-
+	    return resultado;
+   }
+   
 #endif
