@@ -91,11 +91,11 @@ using namespace std;
 
         float porcentaje(int actual, int maximo){
 	
-	    float resultado;
+	    float resultado_porcentaje;
 	
-	    resultado = ((static_cast<float>(actual)) / maximo) * 100;
+	    resultado_porcentaje = ((static_cast<float>(actual)) / maximo) * 100;
 	
-	    return resultado;
+	    return resultado_porcentaje;
    }
    
 #endif
