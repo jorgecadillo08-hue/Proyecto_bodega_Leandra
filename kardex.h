@@ -1,5 +1,5 @@
-#ifndef kardex_h
-#define kardex_h
+#ifndef KARDEX_H
+#define KARDEX_H
 
 #include <iostream>
 #include <string>
