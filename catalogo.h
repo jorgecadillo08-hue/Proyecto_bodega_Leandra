@@ -1,5 +1,5 @@
-#indef catalogo_h
-#define catalogo_h
+#indef CATALOGO_H
+#define CATALOGO_H
 
 #include <iostream>
 #include <strings>
