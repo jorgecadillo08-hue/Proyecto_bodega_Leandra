@@ -1,4 +1,4 @@
-#indef CATALOGO_H
+#ifdef CATALOGO_H
 #define CATALOGO_H
 
 #include <iostream>
