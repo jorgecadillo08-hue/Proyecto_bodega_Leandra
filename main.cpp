@@ -102,7 +102,7 @@ void menu_movimientos(vector<producto> &catalogo, int &stock_actual, int &stock_
             cout << "--- VENTA / SALIDA ---" << endl;
             cout << "Valor total de la venta generada: S/. " << fixed << setprecision(2) << monto_total << endl;
         }
-
+        
         string t_str = (tipo_movimiento == 1) ? "INGRESO" : "RETIRO";
         registrar_kardex(kardex, catalogo[idx].codigo_de_barras, t_str, cantidad, stock_actual, catalogo[idx].precio_venta);
     } else {
