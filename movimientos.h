@@ -5,7 +5,7 @@
 #include <string>
 
 using namespace std;
-
+ // PERMITE QUE SOLO PUEDA LEER NUMEROS, MAS NO CARACTERES
     int leer_numero(){
 
     int numero;
@@ -22,6 +22,7 @@ using namespace std;
     return numero;
 }
 
+ // PERMITE CALCULAR EL TOTAL DE STOCK DISPONIBLE PARA AGREGAR PRODUCTOS
     int calcular_espacio_disponible(int stock_actual, int stock_maximo){
     	
     	int resultado;
@@ -31,6 +32,7 @@ using namespace std;
     	return resultado;
 	}
 
+// PERMITE VERIFICAR QUE LA CANTIDAD QUE AGREGUE O RETIRE SEA POSITIVA
    bool validar_cantidad_positiva(int cantidad){
    	
    	if(cantidad <= 0) {
@@ -40,6 +42,7 @@ using namespace std;
 	return true;
   }
   
+  // PERMITE CONFIRMAR ANTES DE REALIZAR LOS MOVIMIENTOS
   bool pedir_confirmacion(char respuesta) {
  
     if(respuesta == 'S') {
@@ -49,6 +52,7 @@ using namespace std;
 	return false;
 }
 
+// PERMITE VALIDAR QUE EL DNI SEA ESCRITO Y CONTADO CORRECTAMENTE
   bool validar_dni(string dni){
 
     if(dni.length() != 8){
@@ -64,6 +68,7 @@ using namespace std;
     return true;
 }
 
+// PERMITE VALIDAR QUE EL RUC SE ESCRIBA CORRECTAMENTE
   bool validar_ruc(string ruc){
 
     if(ruc.length() != 11){
@@ -79,6 +84,7 @@ using namespace std;
     return true;
 }
 
+// PERMITE LA CONDICION DEL PAGO
   string pedir_condicion_pago(){
 
     int opcion;
@@ -101,6 +107,7 @@ using namespace std;
     return "CREDITO";
 }
 
+// PERMITE REGISTRAR DATOS DEL PROVEEDOR
   void registrar_datos_proveedor(){
 
     string proveedor;
@@ -146,6 +153,7 @@ using namespace std;
     }
 }
 
+// PERMITE REGISTRAR LOS DATOS DEL CLIENTE
   void registrar_datos_cliente(){
 
     string nombre_cliente;
@@ -192,6 +200,7 @@ using namespace std;
     }
 }
 
+// PERMITE ELEGIR EL METODO DE PAGO
 string elegir_metodo_pago(){
 
     int opcion;
@@ -218,6 +227,7 @@ string elegir_metodo_pago(){
     return "TARJETA";
 }
 
+//PERMITE PEDIR EL MOTIVO DE LA MERMA
   string pedir_motivo_merma(){
 
     int opcion;
@@ -244,6 +254,7 @@ string elegir_metodo_pago(){
     return "ROBO O PERDIDA";
 }
 
+// PERMITE EL MOTIVO DE DEVOLUCION
 string pedir_motivo_devolucion(){
 
     int opcion;
@@ -269,7 +280,44 @@ string pedir_motivo_devolucion(){
 
     return "CLIENTE NO CONFORME";
 }
+
+// PERMITE REGISTRAR LA FECHA DE VENCIMIENTO
+  void registrar_fecha_vencimiento(){
+
+    int dia;
+    int mes;
+    int anio;
+
+    cout << "--- FECHA DE VENCIMIENTO DEL LOTE ---" << endl;
+
+    cout << "ANIO: ";
+    anio = leer_numero();
+
+    while(anio < 2026 || anio > 2040){
+        cout << "ERROR, EL ANIO DEBE ESTAR ENTRE 2026 Y 2040: ";
+        anio = leer_numero();
+    }
+
+    cout << "MES (1 a 12): ";
+    mes = leer_numero();
+
+    while(mes < 1 || mes > 12){
+        cout << "ERROR, EL MES DEBE ESTAR ENTRE 1 Y 12: ";
+        mes = leer_numero();
+    }
+
+    cout << "DIA (1 a 31): ";
+    dia = leer_numero();
+
+    while(dia < 1 || dia > 31){
+        cout << "ERROR, EL DIA DEBE ESTAR ENTRE 1 Y 31: ";
+        dia = leer_numero();
+    }
+
+    cout << "LOTE REGISTRADO CON VENCIMIENTO: " << dia << "/" << mes << "/" << anio << endl;
+}
   
+  // PERMITE REALIZAR LA OPERACION DE INGRESO DE STOCK
   bool ejecutar_ingreso(int &stock_actual, int stock_maximo, int cantidad){
   	
   	if(stock_actual > stock_maximo) {
@@ -295,6 +343,7 @@ string pedir_motivo_devolucion(){
 		stock_actual = stock_actual + cantidad;
 		cout << "SE AGREGARON " << cantidad << " PRODUCTOS CORRECTAMENTE" << endl;
 		registrar_datos_proveedor();
+		registrar_fecha_vencimiento();
 		return true;
 	}
 	else{
@@ -303,6 +352,7 @@ string pedir_motivo_devolucion(){
 	}
   }
   
+  // PERMITE REALIZAR LA OPERACION DE RETIRO DE STOCK
   bool ejecutar_retiro(int &stock_actual, int cantidad){
   	
   	bool respuesta;
@@ -332,6 +382,7 @@ string pedir_motivo_devolucion(){
 	  }
   }
   
+  // PERMITE REALIZAR LA OPERACION DE RETIRO POR MERMA
   bool ejecutar_merma(int &stock_actual, int cantidad){
         
         if(cantidad <= 0){
@@ -365,6 +416,7 @@ string pedir_motivo_devolucion(){
         }
     }
     
+    // PERMITE REALIZAR LA OPERACION DE DEVOLUCION DE PRODUCTOS
     bool ejecutar_devolucion_cliente(int &stock_actual, int stock_maximo, int cantidad){
     
     if(cantidad <= 0) {
@@ -400,6 +452,7 @@ string pedir_motivo_devolucion(){
     return true;
 }
   
+  // LA PRINCIPAL DE ESTE MODULO
 	bool estado_operacion(int &stock_actual, int stock_maximo, int tipo_movimiento, int cantidad){
 		
 		bool validacion;
@@ -445,7 +498,7 @@ string pedir_motivo_devolucion(){
 		}
 	}
 }
-
+ // CALCULA PORCENTAJE DE LOS PRODUCTOS 
         float porcentaje(int actual, int maximo){
 	
 	    float resultado_porcentaje;
