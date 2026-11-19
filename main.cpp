@@ -79,6 +79,7 @@ void menu_movimientos(vector<producto> &catalogo, int &stock_actual, int &stock_
     cout << "1. AGREGAR STOCK AL ALMACEN" << endl;
     cout << "2. SALIDA DE STOCK DEL ALMACEN" << endl;
     cout << "3. RETIRO DE STOCK POR MERMA" << endl;
+    cout << "4. INGRESO DE STOCK POR DEVOLUCION" << endl;
     cout << "SELECCIONE SU TIPO DE MOVIMIENTO POR FAVOR: ";
     cin >> tipo_movimiento;
 
